@@ -10,7 +10,14 @@ public class Employee {
     private String department;
     private List<Employee> directReports;
 
-    public Employee() {
+    public Employee() { }
+
+    public Employee(String firstName, String lastName, String position, String department, List<Employee> directReports) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.position = position;
+        this.department = department;
+        this.directReports = directReports;
     }
 
     public String getEmployeeId() {
@@ -59,5 +66,10 @@ public class Employee {
 
     public void setDirectReports(List<Employee> directReports) {
         this.directReports = directReports;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee [employeeId=" + this.employeeId + "]";
     }
 }
