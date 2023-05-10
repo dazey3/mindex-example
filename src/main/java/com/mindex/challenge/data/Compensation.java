@@ -2,6 +2,9 @@ package com.mindex.challenge.data;
 
 import java.util.Date;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class Compensation {
     private Employee employee;
     // whole dollar amount

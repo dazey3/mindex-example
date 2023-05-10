@@ -1,6 +1,5 @@
 package com.mindex.challenge.service.impl;
 
-import com.mindex.challenge.dao.CompensationRepository;
 import com.mindex.challenge.dao.EmployeeRepository;
 import com.mindex.challenge.data.Compensation;
 import com.mindex.challenge.data.Employee;
@@ -25,7 +24,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee create(Employee employee) {
-        employee.setEmployeeId(UUID.randomUUID().toString());
+//        employee.setEmployeeId(UUID.randomUUID().toString());
 
         LOG.debug("Creating employee [{}]", employee);
         employeeRepository.insert(employee);
@@ -50,6 +49,33 @@ public class EmployeeServiceImpl implements EmployeeService {
         LOG.debug("Updating employee [{}]", employee);
 
         return employeeRepository.save(employee);
+    }
+
+    // Compensation
+
+    @Override
+    public Compensation readCompensation(String id) {
+        LOG.debug("Reading compensation for employee with id [{}]", id);
+
+        Employee employee = read(id);
+
+        Compensation compensation = employee.getCompensation();
+        if (compensation == null) {
+            throw new RuntimeException("No compensation found for employeeId: " + id);
+        }
+
+        return compensation;
+    }
+
+    @Override
+    public Compensation update(String id, Compensation compensation) {
+        LOG.debug("Creating compensation [{}] for employee [{}]", compensation, id);
+
+        Employee employee = read(id);
+        employee.setCompensation(compensation);
+        update(employee);
+
+        return employee.getCompensation();
     }
 
     // Reporting
